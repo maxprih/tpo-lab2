@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.lang.Math.pow;
+
 public class Function {
     Sec sec;
     Tan tan;

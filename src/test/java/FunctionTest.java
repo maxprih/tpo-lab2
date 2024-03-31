@@ -13,19 +13,19 @@ import java.io.Reader;
 
 class FunctionTest {
 
-    static double functionEps = 0.1;
-    double eps = 0.1;
+    private static double functionEps = 0.1;
+    private double eps = 0.1;
 
-    static Sec secMock;
-    static Cos cosMock;
-    static Sin sinMock;
+    private static Sec secMock;
+    private static Cos cosMock;
+    private static Sin sinMock;
     private static Csc cscMock;
     private static Tan tanMock;
     private static Cot cotMock;
 
-    static Reader secIn;
-    static Reader cosIn;
-    static Reader sinIn;
+    private static Reader secIn;
+    private static Reader cosIn;
+    private static Reader sinIn;
     private static Reader cscIn;
     private static Reader tanIn;
     private static Reader cotIn;
@@ -81,63 +81,5 @@ class FunctionTest {
     void testSystemWithMocks(double value, double expected) {
         Function function = new Function(secMock, tanMock, cscMock, sinMock, cosMock, cotMock);
         Assertions.assertEquals(expected, function.solve(value, functionEps), eps);
-/*
-        try {
-            Assertions.assertEquals(expected, function.writeResultToCSV(value, functionEps,
-                    new FileWriter("C:\\Users\\egorm\\IdeaProjects\\TpoLab2\\src\\main\\resources\\CsvFiles\\Outputs\\SystemOut.csv", true)), eps);
-        } catch (IOException e) {
-            System.err.println("Да как ты это делаешь ");
-        }
-*/
-
     }
-//
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "/CsvFiles/Inputs/SystemIn.csv")
-//    void testWithSec(double value, double expected) {
-//        Function function = new Function(new Sec(cosMock), lnMock, logMock);
-//        Assertions.assertEquals(expected, function.SystemSolve(value, functionEps), eps);
-//    }
-//
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "/CsvFiles/Inputs/SystemIn.csv")
-//    void testWithCos(double value, double expected) {
-//        Function function = new Function(new Sec(new Cos(sinMock)), lnMock, logMock);
-//        Assertions.assertEquals(expected, function.SystemSolve(value, functionEps), eps);
-//    }
-//
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "/CsvFiles/Inputs/SystemIn.csv")
-//    void testWithSin(double value, double expected) {
-//        Function function = new Function(new Sec(new Cos(new Sin())), lnMock, logMock);
-//        Assertions.assertEquals(expected, function.SystemSolve(value, functionEps), eps);
-//    }
-//
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "/CsvFiles/Inputs/SystemIn.csv")
-//    void testWithLog(double value, double expected) {
-//        Function function = new Function(secMock, lnMock, new Log(lnMock));
-//        Assertions.assertEquals(expected, function.SystemSolve(value, functionEps), eps);
-//    }
-//
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "/CsvFiles/Inputs/SystemIn.csv")
-//    void testWithLn(double value, double expected) {
-//        Function function = new Function(secMock, new Ln(), new Log());
-//        Assertions.assertEquals(expected, function.SystemSolve(value, functionEps), eps * 20);
-//    }
-//
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "/CsvFiles/Inputs/SystemIn.csv")
-//    void testWithSinAndLn(double value, double expected) {
-//        Function function = new Function();
-//        Assertions.assertEquals(expected, function.SystemSolve(value, functionEps), eps * 20);
-//    }
-//
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "/CsvFiles/Inputs/CosIn.csv")
-//    void testCos(double value, double expected) {
-//        Cos cos = new Cos();
-//        Assertions.assertEquals(expected, cos.cos(value, functionEps), eps * 20);
-//    }
 }

@@ -22,14 +22,4 @@ public class Sec {
         if (Double.isNaN(cosVal) || cosVal == 0) return Double.NaN;
         return 1 / cosVal;
     }
-
-    public double writeResultToCSV(double x, double eps, Writer out) {
-        double res = sec(x, eps);
-        try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)) {
-            printer.printRecord(x, res);
-        } catch (IOException e) {
-            System.out.println("Wrong filename");
-        }
-        return res;
-    }
 }
