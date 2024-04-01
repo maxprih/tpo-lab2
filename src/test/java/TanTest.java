@@ -1,4 +1,5 @@
 import com.maxpri.Cos;
+import com.maxpri.Cot;
 import com.maxpri.Sin;
 import com.maxpri.Tan;
 import org.apache.commons.csv.CSVFormat;
@@ -6,6 +7,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.mockito.Mockito;
@@ -63,5 +65,19 @@ public class TanTest {
     void testTan(double value, double expected) {
         Tan tan = new Tan();
         Assertions.assertEquals(expected, tan.tan(value, eps), 0.1);
+    }
+
+    @Test
+    void testCsvWrite() throws IOException {
+        Tan tan = new Tan();
+        tan.write(-2*Math.PI, Math.PI * 2, Math.PI/4, eps, "src/main/resources/CsvFiles/Outputs/TanOut.csv", true);
+
+        Reader tanReader = new FileReader("src/main/resources/CsvFiles/Outputs/TanOut.csv");
+
+        Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(tanReader);
+
+        for (CSVRecord record : records) {
+            Assertions.assertEquals(Double.parseDouble(record.get(1)), tan.tan(Double.parseDouble(record.get(0)), eps), 0.001);
+        }
     }
 }

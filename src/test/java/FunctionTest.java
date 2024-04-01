@@ -3,6 +3,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.mockito.Mockito;
@@ -131,5 +132,19 @@ class FunctionTest {
     void testSystemWithSomeMocks(double value, double expected) {
         Function function = new Function(new Sec(cosMock), tanMock, new Csc(sinMock), new Sin(), cosMock, new Cot(new Sin(), cosMock), logMock, lnMock);
         Assertions.assertEquals(expected, function.solve(value, functionEps), eps);
+    }
+
+    @Test
+    void testCsvWrite() throws IOException {
+        Function function = new Function();
+        function.write(-2*Math.PI, Math.PI * 2, Math.PI/4, eps, "src/main/resources/CsvFiles/Outputs/FunctionOut.csv", true);
+
+        Reader funcReader = new FileReader("src/main/resources/CsvFiles/Outputs/FunctionOut.csv");
+
+        Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(funcReader);
+
+        for (CSVRecord record : records) {
+            Assertions.assertEquals(Double.parseDouble(record.get(1)), function.solve(Double.parseDouble(record.get(0)), eps), 0.001);
+        }
     }
 }
