@@ -37,7 +37,13 @@ public class Sin {
         return result;
     }
 
-    public void writeResultToCSV(double x, double eps, String filename, boolean override) throws IOException {
+    private void writeResultToCSV(double x, double eps, File file) throws IOException {
+        final PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
+        printWriter.println(x + "," + sin(x, eps));
+        printWriter.close();
+    }
+
+    public void write(double from, double to, double step, double eps, String filename, boolean override) throws IOException {
         final Path path = Paths.get(filename);
         final File file = new File(path.toUri());
         if (override) {
@@ -46,8 +52,8 @@ public class Sin {
         } else if (!file.exists()) {
             file.createNewFile();
         }
-        final PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
-        printWriter.println(x + "," + sin(x, eps));
-        printWriter.close();
+        for (double curr = from; curr <= to; curr += step) {
+            writeResultToCSV(curr, eps, file);
+        }
     }
 }

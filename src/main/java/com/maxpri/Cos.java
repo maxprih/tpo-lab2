@@ -26,13 +26,19 @@ public class Cos {
         }
         double sinX = Math.pow(sin.sin(x, eps), 2);
         if (newX > Math.PI / 2 && newX < (Math.PI + Math.PI / 2)) {
-            return -Math.sqrt(1 - sinX);
+            return -Math.sqrt(Math.max(0, 1 - sinX));
         } else {
-            return Math.sqrt(1 - sinX);
+            return Math.sqrt(Math.max(0, 1 - sinX));
         }
     }
 
-    public void writeResultToCSV(double x, double eps, String filename, boolean override) throws IOException {
+    private void writeResultToCSV(double x, double eps, File file) throws IOException {
+        final PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
+        printWriter.println(x + "," + cos(x, eps));
+        printWriter.close();
+    }
+
+    public void write(double from, double to, double step, double eps, String filename, boolean override) throws IOException {
         final Path path = Paths.get(filename);
         final File file = new File(path.toUri());
         if (override) {
@@ -41,8 +47,8 @@ public class Cos {
         } else if (!file.exists()) {
             file.createNewFile();
         }
-        final PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
-        printWriter.println(x + "," + cos(x, eps));
-        printWriter.close();
+        for (double curr = from; curr <= to; curr += step) {
+            writeResultToCSV(curr, eps, file);
+        }
     }
 }

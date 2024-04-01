@@ -18,7 +18,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class TanTest {
-    private static double eps = 0.0001;
+    private static double eps = 0.000000001;
     private static Sin mockedSin;
     private static Cos mockedCos;
     private static Reader sinReader;
@@ -54,7 +54,14 @@ public class TanTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/TanIn.csv")
-    void testTan(double value, double expected) {
+    void testTanWithMocks(double value, double expected) {
         Assertions.assertEquals(expected, tan.tan(value, eps), eps);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/CsvFiles/Inputs/TanIn.csv")
+    void testTan(double value, double expected) {
+        Tan tan = new Tan();
+        Assertions.assertEquals(expected, tan.tan(value, eps), 0.1);
     }
 }

@@ -19,7 +19,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class СotTest {
-    private static double eps = 0.0001;
+    private static double eps = 0.000000001;
     private static Sin mockedSin;
     private static Cos mockedCos;
     private static Reader sinReader;
@@ -55,7 +55,14 @@ public class СotTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/CotIn.csv")
-    void testCot(double value, double expected) {
+    void testCotWithMocks(double value, double expected) {
         Assertions.assertEquals(expected, cot.cot(value, eps), eps);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/CsvFiles/Inputs/CotIn.csv")
+    void testCot(double value, double expected) {
+        Cot cot = new Cot();
+        Assertions.assertEquals(expected, cot.cot(value, eps), 0.1);
     }
 }

@@ -27,13 +27,26 @@ public class Function {
         this.ln = new Ln();
     }
 
-    public Function(Sec sec, Tan tan, Csc csc, Sin sin, Cos cos, Cot cot) {
+    public Function(Sin sin, Ln ln) {
+        this.sin = sin;
+        this.ln = ln;
+        this.cos = new Cos(sin);
+        this.sec = new Sec(cos);
+        this.tan = new Tan(sin, cos);
+        this.csc = new Csc(sin);
+        this.cot = new Cot(sin, cos);
+        this.log = new Log(ln);
+    }
+
+    public Function(Sec sec, Tan tan, Csc csc, Sin sin, Cos cos, Cot cot, Log log, Ln ln) {
         this.sec = sec;
         this.tan = tan;
         this.csc = csc;
         this.sin = sin;
         this.cos = cos;
         this.cot = cot;
+        this.log = log;
+        this.ln = ln;
     }
 
     public double solve(double x, double eps) {
@@ -43,7 +56,13 @@ public class Function {
         return pow(pow(pow(log.log(10, x, eps), 3) - (ln.ln(x, eps) - log.log(2, x, eps)) - log.log(2, x, eps), 3), 2);
     }
 
-    private void writeResultToCSV(double x, double eps, String filename, boolean override) throws IOException {
+    private void writeResultToCSV(double x, double eps, File file) throws IOException {
+        final PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
+        printWriter.println(x + "," + solve(x, eps));
+        printWriter.close();
+    }
+
+    public void write(double from, double to, double step, double eps, String filename, boolean override) throws IOException {
         final Path path = Paths.get(filename);
         final File file = new File(path.toUri());
         if (override) {
@@ -52,20 +71,8 @@ public class Function {
         } else if (!file.exists()) {
             file.createNewFile();
         }
-        final PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
-        printWriter.println(x + "," + solve(x, eps));
-        printWriter.close();
-    }
-
-    public void write(double from, double to, double step, double eps, String filename, boolean override) throws IOException {
-        if (!override) {
-            for (double curr = from; curr <= to; curr += step) {
-                writeResultToCSV(curr, eps, filename, false);
-            }
-        } else {
-            for (double curr = from; curr <= to; curr += step) {
-                writeResultToCSV(curr, eps, filename, true);
-            }
+        for (double curr = from; curr <= to; curr += step) {
+            writeResultToCSV(curr, eps, file);
         }
     }
 }

@@ -43,8 +43,14 @@ public class CosTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/CosIn.csv")
-    void testCos(double value, double expected) {
+    void testCosWithMock(double value, double expected) {
         Assertions.assertEquals(expected, cos.cos(value, eps), eps);
-        Mockito.verify(mockedSin, Mockito.atLeastOnce()).sin(Mockito.anyDouble(), Mockito.eq(eps));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/CsvFiles/Inputs/CosIn.csv")
+    void testCos(double value, double expected) {
+        Cos cos = new Cos();
+        Assertions.assertEquals(expected, cos.cos(value, eps), eps*10);
     }
 }

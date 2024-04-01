@@ -18,7 +18,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class CscTest {
-    private static double eps = 0.0001;
+    private static double eps = 0.0000001;
     private static Sin mockedSin;
     private static Reader sinReader;
     private Csc csc;
@@ -43,7 +43,14 @@ public class CscTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/CscIn.csv")
-    void testCsc(double value, double expected) {
+    void testCscWithMock(double value, double expected) {
         Assertions.assertEquals(expected, csc.csc(value, eps), eps);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/CsvFiles/Inputs/CscIn.csv")
+    void testCsc(double value, double expected) {
+        Csc csc = new Csc();
+        Assertions.assertEquals(expected, csc.csc(value, eps), 0.1);
     }
 }

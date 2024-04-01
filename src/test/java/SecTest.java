@@ -19,7 +19,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class SecTest {
-    private static double eps = 0.0001;
+    private static double eps = 0.0000001;
     private static Cos mockedCos;
     private static Reader cosReader;
     private Sec sec;
@@ -44,7 +44,14 @@ public class SecTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/SecIn.csv")
-    void testSec(double value, double expected) {
+    void testSecWithMock(double value, double expected) {
         Assertions.assertEquals(expected, sec.sec(value, eps), eps);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/CsvFiles/Inputs/SecIn.csv")
+    void testSec(double value, double expected) {
+        Sec sec = new Sec();
+        Assertions.assertEquals(expected, sec.sec(value, eps), 0.1);
     }
 }
