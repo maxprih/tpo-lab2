@@ -13,30 +13,15 @@ import static java.lang.Math.pow;
 
 public class Application {
     public static void main(String[] args) throws IOException {
-//        Cos cos = new Cos();
-//        Ln ln = new Ln();
-//        0.030379
-//        0.02
-//        0
-//        0.05
-//        0.13302
-//        Function function = new Function();
-//        double x = 500;
-//        System.out.println(function.solve(x, 0.000001));
-//        System.out.println(pow(pow(pow(Math.log(x) / Math.log(10), 3) - (Math.log(x) - Math.log(x) / Math.log(2)) - Math.log(x) / Math.log(2), 3), 2));
-        Log log = new Log();
-        System.out.println(log.log(2, 30.0, 0.00001));
-//        generateTestCSV("src/main/resources/CsvFiles/Inputs/FuncIn.csv", 20);
-//        generateTestCSV("src/main/resources/CsvFiles/Outputs/TestOut.csv", 123);
-//        cos.write(-Math.PI*8, Math.PI * 8, Math.PI/16, 0.001, "src/main/resources/CsvFiles/Outputs/CosOut.csv", true);
-//        cos.write(-2*Math.PI, Math.PI * 2, Math.PI/4, 0.001, "src/main/resources/CsvFiles/Outputs/CosOut.csv", true);
+        Function function = new Function();
+        System.out.println(function.solve(-0.8954, 0.0001));
+        System.out.println(function.solve(-0.8954 - 2*Math.PI, 0.0001));
     }
 
     private static void generateTestCSV(String filename, int numLines) throws IOException {
         Reader reader1 = new FileReader("src/main/resources/CsvFiles/Inputs/FunctionIn.csv");
         Reader reader2 = new FileReader("src/main/resources/CsvFiles/Inputs/Function2In.csv");
 
-//        Function function = new Function();
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(reader1);
         Iterable<CSVRecord> records2 = CSVFormat.DEFAULT.parse(reader2);
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {

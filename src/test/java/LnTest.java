@@ -16,7 +16,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class LnTest {
-    private static double eps = 0.001;
+    private static double eps = 0.00001;
     private Ln ln;
 
     @BeforeEach
@@ -27,7 +27,7 @@ public class LnTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/LnIn.csv")
     void testLn(double value, double expected) {
-        Assertions.assertEquals(expected, ln.ln(value, eps), eps*100);
+        Assertions.assertEquals(expected, ln.ln(value, eps), 0.1);
     }
 
     @Test

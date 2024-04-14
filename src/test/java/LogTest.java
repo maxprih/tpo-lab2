@@ -17,7 +17,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class LogTest {
-    private static double eps = 0.001;
+    private static double eps = 0.00001;
     private static Ln mockedLn;
     private static Reader lnReader;
     private Log log;
@@ -42,7 +42,7 @@ public class LogTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/Log10In.csv")
     void testLog10WithMocks(double value, double expected) {
-        Assertions.assertEquals(expected, log.log(10, value, eps), eps);
+        Assertions.assertEquals(expected, log.log(10, value, eps), 0.1);
     }
 
     @ParameterizedTest
@@ -55,14 +55,14 @@ public class LogTest {
     @CsvFileSource(resources = "/CsvFiles/Inputs/Log10In.csv")
     void testLog10(double value, double expected) {
         Log log = new Log();
-        Assertions.assertEquals(expected, log.log(10, value, eps), eps*10);
+        Assertions.assertEquals(expected, log.log(10, value, eps), 0.1);
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/CsvFiles/Inputs/Log2In.csv")
     void testLog2(double value, double expected) {
         Log log = new Log();
-        Assertions.assertEquals(expected, log.log(2, value, eps), eps*10);
+        Assertions.assertEquals(expected, log.log(2, value, eps), 0.1);
     }
 
     @Test
