@@ -12,9 +12,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-class FunctionTest {
+import static java.lang.Math.pow;
 
-    private static double functionEps = 0.0000000000000000000000000000000000000000000000000001;
+class FunctionTest {
+    private static double functionEps = 0.0000000000000001;
     private double eps = 10;
 
     private static Sec secMock;
@@ -100,35 +101,35 @@ class FunctionTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/CsvFiles/Inputs/FunctionIn.csv")
+    @CsvFileSource(resources = "/CsvFiles/Inputs/FuncIn.csv")
     void testSystemWithMocks(double value, double expected) {
         Function function = new Function(secMock, tanMock, cscMock, sinMock, cosMock, cotMock, logMock, lnMock);
         Assertions.assertEquals(expected, function.solve(value, functionEps), eps);
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/CsvFiles/Inputs/FunctionIn.csv")
+    @CsvFileSource(resources = "/CsvFiles/Inputs/FuncIn.csv")
     void testSystemWithBasicFunctionsMocks(double value, double expected) {
         Function function = new Function(sinMock, lnMock);
         Assertions.assertEquals(expected, function.solve(value, functionEps), eps);
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/CsvFiles/Inputs/FunctionIn.csv")
+    @CsvFileSource(resources = "/CsvFiles/Inputs/FuncIn.csv")
     void testSystemWithBasicFunctions(double value, double expected) {
         Function function = new Function(new Sin(), new Ln());
         Assertions.assertEquals(expected, function.solve(value, functionEps), eps);
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/CsvFiles/Inputs/FunctionIn.csv")
+    @CsvFileSource(resources = "/CsvFiles/Inputs/FuncIn.csv")
     void testSystemWithNoMocks(double value, double expected) {
         Function function = new Function();
         Assertions.assertEquals(expected, function.solve(value, functionEps), eps);
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/CsvFiles/Inputs/FunctionIn.csv")
+    @CsvFileSource(resources = "/CsvFiles/Inputs/FuncIn.csv")
     void testSystemWithSomeMocks(double value, double expected) {
         Function function = new Function(new Sec(cosMock), tanMock, new Csc(sinMock), new Sin(), cosMock, new Cot(new Sin(), cosMock), logMock, lnMock);
         Assertions.assertEquals(expected, function.solve(value, functionEps), eps);

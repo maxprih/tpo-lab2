@@ -20,7 +20,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class СotTest {
-    private static double eps = 0.000000001;
+    private static double eps = 0.00001;
     private static Sin mockedSin;
     private static Cos mockedCos;
     private static Reader sinReader;

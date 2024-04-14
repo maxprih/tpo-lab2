@@ -16,7 +16,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class SinTest {
-    private static double eps = 0.0001;
+    private static double eps = 0.00001;
     private Sin sin;
 
     @BeforeEach

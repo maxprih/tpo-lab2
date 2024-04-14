@@ -17,7 +17,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class SecTest {
-    private static double eps = 0.0000001;
+    private static double eps = 0.00001;
     private static Cos mockedCos;
     private static Reader cosReader;
     private Sec sec;

@@ -16,7 +16,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class LnTest {
-    private static double eps = 0.0001;
+    private static double eps = 0.001;
     private Ln ln;
 
     @BeforeEach

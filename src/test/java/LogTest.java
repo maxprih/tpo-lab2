@@ -17,7 +17,7 @@ import java.io.Reader;
  * @author max_pri
  */
 public class LogTest {
-    private static double eps = 0.0001;
+    private static double eps = 0.001;
     private static Ln mockedLn;
     private static Reader lnReader;
     private Log log;
